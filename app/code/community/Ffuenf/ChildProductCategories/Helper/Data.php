@@ -16,7 +16,7 @@
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
-class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_DevTools_Helper_Core
+class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_ChildProductCategories_Helper_Core
 {
     const CONFIG_EXTENSION_ACTIVE = 'ffuenf_childproductcategories/general/enable';
     const CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAME = 'ffuenf_childproductcategories/reassigncategories/timeframe';
