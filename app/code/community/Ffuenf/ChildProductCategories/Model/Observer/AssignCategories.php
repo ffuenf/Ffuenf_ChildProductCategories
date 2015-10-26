@@ -22,7 +22,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
     /**
      * Assign the categories of a configurable product to its child products
      *
-     * @return bool
+     * @return boolean|null
      */
     public function assignCategories($observer)
     {
@@ -31,6 +31,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
             if ($product->getTypeId() == 'configurable') {
                 $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $product);
                 $parentCategoryIds = $product->getCategoryIds();
+                $childProductsIds = array();
                 foreach ($childProducts as $childProduct) {
                     $childCategoryIds = $parentCategoryIds;
                     $childProductsIds[] = $childProduct->getId();
@@ -39,6 +40,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
                     $childProduct->save();
                 }
                 Mage::log('The categories of "'.$product->getName().'" ID:'.$product->getId().' has been assign to its child products '.implode(",",$childProductsIds));
+                return true;
             }
         }
     }
