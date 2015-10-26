@@ -81,6 +81,9 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
             $childProduct->save();
         }
     }
+
+    public function batchAfter()
+    {}
 }
 
 $shell = new Assign_Categories_Of_Parent_To_Simples();

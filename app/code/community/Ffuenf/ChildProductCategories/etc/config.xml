@@ -34,8 +34,6 @@
                 <class>Ffuenf_ChildProductCategories_Model</class>
             </childproductcategories>
         </models>
-    </global>
-    <adminhtml>
         <events>
             <catalog_product_save_before>
                 <observers>
@@ -56,7 +54,7 @@
                 </observers>
             </catalog_product_attribute_update_before>
         </events>
-    </adminhtml>
+    </global>
     <default>
         <ffuenf_childproductcategories>
             <general>
