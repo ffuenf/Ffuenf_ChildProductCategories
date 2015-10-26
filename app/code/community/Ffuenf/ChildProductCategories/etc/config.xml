@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_ChildProductCategories extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <modules>
+        <Ffuenf_ChildProductCategories>
+            <version>1.0.0</version>
+        </Ffuenf_ChildProductCategories>
+    </modules>
+    <global>
+        <helpers>
+            <ffuenf_childproductcategories>
+                <class>Ffuenf_ChildProductCategories_Helper</class>
+            </ffuenf_childproductcategories>
+        </helpers>
+        <models>
+            <childproductcategories>
+                <class>Ffuenf_ChildProductCategories_Model</class>
+            </childproductcategories>
+        </models>
+    </global>
+    <adminhtml>
+        <events>
+            <catalog_product_save_before>
+                <observers>
+                    <childproductcategories_catalog_product_save_before>
+                        <type>singleton</type>
+                        <class>childproductcategories/observer_assignCategories</class>
+                        <method>assignCategories</method>
+                    </childproductcategories_catalog_product_save_before>
+                </observers>
+            </catalog_product_save_before>
+            <catalog_product_attribute_update_before>
+                <observers>
+                    <childproductcategories_catalog_product_attribute_update_before>
+                        <type>singleton</type>
+                        <class>childproductcategories/observer_assignCategories</class>
+                        <method>assignCategories</method>
+                    </childproductcategories_catalog_product_attribute_update_before>
+                </observers>
+            </catalog_product_attribute_update_before>
+        </events>
+    </adminhtml>
+    <default>
+        <ffuenf_childproductcategories>
+            <general>
+                <enable>0</enable>
+            </general>
+            <reassigncategories>
+                <timeframe>-2 days</timeframe>
+            </reassigncategories>
+        </ffuenf_childproductcategories>
+    </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <Ffuenf_ChildProductCategories/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
