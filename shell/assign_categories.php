@@ -31,7 +31,7 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
      */
     public function walk($collection, array $callbackForIndividual, array $callbackAfterBatch, $batchSize = null)
     {
-        if ($batchSize !=== null) {
+        if ($batchSize !== null) {
             $batchSize = self::DEFAULT_BATCH_SIZE;
         }
         $collection->setPageSize($batchSize);
@@ -82,8 +82,9 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
         }
     }
 
-    public function batchAfter()
-    {}
+    public function batchAfter($model)
+    {
+    }
 }
 
 $shell = new Assign_Categories_Of_Parent_To_Simples();
