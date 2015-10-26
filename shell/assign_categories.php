@@ -27,11 +27,11 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
      * @param $collection Varien_Data_Collection
      * @param array $callbackForIndividual
      * @param array $callbackAfterBatch
-     * @param int $batchSize
+     * @param integer|null $batchSize
      */
     public function walk($collection, array $callbackForIndividual, array $callbackAfterBatch, $batchSize = null)
     {
-        if (!$batchSize) {
+        if ($batchSize !=== null) {
             $batchSize = self::DEFAULT_BATCH_SIZE;
         }
         $collection->setPageSize($batchSize);
