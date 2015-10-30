@@ -19,7 +19,8 @@
 class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_ChildProductCategories_Helper_Core
 {
     const CONFIG_EXTENSION_ACTIVE = 'ffuenf_childproductcategories/general/enable';
-    const CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAME = 'ffuenf_childproductcategories/reassigncategories/timeframe';
+    const CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAMEFROM = 'ffuenf_childproductcategories/reassigncategories/timeframefrom';
+    const CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAMETO = 'ffuenf_childproductcategories/reassigncategories/timeframeto';
 
     /**
      * Variable for if the extension is active.
@@ -33,7 +34,14 @@ class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_ChildProductCateg
      *
      * @var string
      */
-    protected $_sReassignCategoriesTimeframe;
+    protected $_sReassignCategoriesTimeframeFrom;
+
+    /**
+     * Variable for the timeframe of reassigning categories
+     *
+     * @var string
+     */
+    protected $_sReassignCategoriesTimeframeTo;
 
     /**
      * Check to see if the extension is active.
@@ -52,8 +60,20 @@ class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_ChildProductCateg
      *
      * @throws Mage_Core_Exception
      */
-    public function getReassignCategoriesTimeframe()
+    public function getReassignCategoriesTimeframeFrom()
     {
-        return strtotime($this->getStoreConfig(self::CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAME, '_sReassignCategoriesTimeframe'));
+        return strtotime($this->getStoreConfig(self::CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAMEFROM, '_sReassignCategoriesTimeframeFrom'));
+    }
+
+    /**
+     * Get timeframe of reassigning categories.
+     *
+     * @return string
+     *
+     * @throws Mage_Core_Exception
+     */
+    public function getReassignCategoriesTimeframeTo()
+    {
+        return strtotime($this->getStoreConfig(self::CONFIG_EXTENSION_REASSIGNCATEGORIES_TIMEFRAMETO, '_sReassignCategoriesTimeframeTo'));
     }
 }

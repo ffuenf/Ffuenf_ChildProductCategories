@@ -54,7 +54,11 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
         $collection = Mage::getResourceModel('catalog/product_collection')
         ->addFieldToFilter(
             'created_at', array(
-                'gt' => date("Y-m-d H:i:s", Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframe())
+                'gt' => date("Y-m-d H:i:s", Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframeFrom())
+            )
+        )->addFieldToFilter(
+            'created_at', array(
+                'lt' => date("Y-m-d H:i:s", Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframeTo())
             )
         )->addFieldToFilter(
             'type_id', 'configurable'
