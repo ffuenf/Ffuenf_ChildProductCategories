@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Ffuenf_ChildProductCategories extension
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the MIT License
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/mit-license.php
- *
- * @category   Ffuenf
- *
- * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
- * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
- * @license    http://opensource.org/licenses/mit-license.php MIT License
+* Ffuenf_ChildProductCategories extension
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the MIT License
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/mit-license.php
+*
+* @category   Ffuenf
+*
+* @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+* @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
+* @license    http://opensource.org/licenses/mit-license.php MIT License
 */
 -->
 <config>
@@ -33,14 +33,22 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
+                <teaser translate="label" module="ffuenf_childproductcategories">
+                    <frontend_model>Ffuenf_ChildProductCategories_Block_Adminhtml_System_Config_Fieldset_Teaser</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                </teaser>
                 <general translate="label" module="ffuenf_childproductcategories">
                     <label>General Configuration</label>
                     <sort_order>1000</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
                     <fields>
-                        <enable translate="label">
+                        <enable translate="label" module="ffuenf_childproductcategories">
                             <label>Enable</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -55,24 +63,39 @@
                     <label>Reassign Categories Configuration</label>
                     <sort_order>2000</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
                     <fields>
-                        <timeframefrom translate="label">
-                            <label>Timeframe for reassigning categories by the shell script (from)</label>
+                        <delete translate="label" module="ffuenf_childproductcategories">
+                            <label>Delete assignments of categories to simple products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </delete>
+                        <timeframetype translate="label" module="ffuenf_childproductcategories">
+                            <label>Type of timeframe (created_at / updated_at)</label>
                             <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </timeframetype>
+                        <timeframefrom translate="label" module="ffuenf_childproductcategories">
+                            <label>Timeframe for reassigning categories by the shell script (from)</label>
+                            <frontend_type>date</frontend_type>
                             <frontend_model>ffuenf_devtools/adminhtml_system_config_date</frontend_model>
-                            <validate>required-entry</validate>
                             <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </timeframefrom>
-                        <timeframeto translate="label">
+                        <timeframeto translate="label" module="ffuenf_childproductcategories">
                             <label>Timeframe for reassigning categories by the shell script (to)</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>date</frontend_type>
                             <frontend_model>ffuenf_devtools/adminhtml_system_config_date</frontend_model>
-                            <validate>required-entry</validate>
                             <sort_order>141</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -80,6 +103,61 @@
                         </timeframeto>
                     </fields>
                 </reassigncategories>
+                <log translate="label" module="ffuenf_childproductcategories">
+                    <label>Logging</label>
+                    <sort_order>3000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable translate="label, comment" module="ffuenf_childproductcategories">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                        <file translate="label, comment" module="ffuenf_childproductcategories">
+                            <label>Name of logfile</label>
+                            <comment><![CDATA[File is located in {{base_dir}}/var/log]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </file>
+                        <force translate="label, comment" module="ffuenf_childproductcategories">
+                            <label>Force logging</label>
+                            <comment>Force logging even if the Magento setting is off</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </force>
+                        <echo translate="label" module="ffuenf_childproductcategories">
+                            <label>Enable log output in console</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </echo>
+                    </fields>
+                </log>
             </groups>
         </ffuenf_childproductcategories>
     </sections>

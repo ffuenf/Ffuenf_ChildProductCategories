@@ -1,0 +1,3 @@
+app/code/community/Ffuenf/ChildProductCategories
+app/etc/modules/Ffuenf_ChildProductCategories.xml
+shell/assign_categories.php

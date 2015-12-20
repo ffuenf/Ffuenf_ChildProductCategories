@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ffuenf_ChildProductCategories extension.
  *
@@ -16,12 +15,19 @@
  * @copyright  Copyright (c) 2015 ffuenf (http://www.ffuenf.de)
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
-class Ffuenf_ChildProductCategories_Block_Adminhtml_System_Config_Date extends Mage_Adminhtml_Block_System_Config_Form_Field
+
+class Ffuenf_ChildProductCategories_Test_Block_Adminhtml_Config_Fieldset_Teaser extends EcomDev_PHPUnit_Test_Case_Config
 {
-    public function render(Varien_Data_Form_Element_Abstract $element)
+    /**
+     * Check if the block aliases are returning the correct class names
+     *
+     * @test
+     */
+    public function testBlockAliases()
     {
-        $element->setFormat(Varien_Date::DATE_INTERNAL_FORMAT);
-        $element->setImage($this->getSkinUrl('images/grid-cal.gif'));
-        return parent::render($element);
+        $this->assertBlockAlias(
+            'ffuenf_childproductcategories/adminhtml_system_config_fieldset_teaser',
+            'Ffuenf_ChildProductCategories_Block_Adminhtml_System_Config_Fieldset_Teaser'
+        );
     }
 }

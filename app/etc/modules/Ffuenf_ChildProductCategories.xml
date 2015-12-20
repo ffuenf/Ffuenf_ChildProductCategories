@@ -22,6 +22,9 @@
         <Ffuenf_ChildProductCategories>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Ffuenf_Common />
+            </depends>
         </Ffuenf_ChildProductCategories>
     </modules>
 </config>
