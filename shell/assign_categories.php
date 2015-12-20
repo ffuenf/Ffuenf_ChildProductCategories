@@ -23,27 +23,32 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
 {
     const DEFAULT_BATCH_SIZE = 250;
 
+    protected $report = array();
+    protected $batchSize = self::DEFAULT_BATCH_SIZE;
+
     /**
      * @param $collection Varien_Data_Collection
      * @param array $callbackForIndividual
      * @param array $callbackAfterBatch
      * @param integer|null $batchSize
      */
-    public function walk($collection, array $callbackForIndividual, array $callbackAfterBatch, $batchSize = null)
+    protected function walk($collection, array $callbackBeforeBatch, array $callbackForIndividual, array $callbackAfterBatch, $batchSize, $report)
     {
-        if ($batchSize !== null) {
-            $batchSize = self::DEFAULT_BATCH_SIZE;
-        }
         $collection->setPageSize($batchSize);
         $currentPage = 1;
         $pages = $collection->getLastPageNumber();
         do {
             $collection->setCurPage($currentPage);
             $collection->load();
+            $reportType = 'shell';
+            $report[$reportType][$currentPage]['start']['time'] = microtime(true);
+            $report[$reportType][$currentPage]['start']['memory'] = memory_get_usage(true);
+            call_user_func($callbackBeforeBatch, $currentPage, $batchSize, $report);
             foreach ($collection as $item) {
-                call_user_func($callbackForIndividual, $item);
+                call_user_func($callbackForIndividual, $item, $currentPage, $batchSize, $report);
             }
-            call_user_func($callbackAfterBatch);
+            call_user_func($callbackAfterBatch, $currentPage, $batchSize, $report);
+            
             $currentPage++;
             $collection->clear();
         } while ($currentPage <= $pages);
@@ -51,13 +56,14 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
     
     public function run()
     {
+        $type = Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframeType();
         $collection = Mage::getResourceModel('catalog/product_collection')
         ->addFieldToFilter(
-            'created_at', array(
+            $type, array(
                 'gt' => date("Y-m-d H:i:s", Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframeFrom())
             )
         )->addFieldToFilter(
-            'created_at', array(
+            $type, array(
                 'lt' => date("Y-m-d H:i:s", Mage::helper('ffuenf_childproductcategories')->getReassignCategoriesTimeframeTo())
             )
         )->addFieldToFilter(
@@ -66,28 +72,66 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
         
         $this->walk(
             $collection,
+            array($this, 'batchBefore'),
             array($this, 'batchIndividual'),
             array($this, 'batchAfter'),
-            self::DEFAULT_BATCH_SIZE
+            self::DEFAULT_BATCH_SIZE,
+            $report
         );
     }
 
-    public function batchIndividual($model)
+    protected function batchBefore($currentPage, $batchSize, $report)
+    {
+    }
+
+    protected function batchIndividual($model, $currentPage, $batchSize, $report)
     {
         $product = Mage::getModel('catalog/product')->load($model->getId());
         $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $product);
         $parentCategoryIds = $product->getCategoryIds();
         foreach ($childProducts as $childProduct) {
-            $childCategoryIds = $parentCategoryIds;
+            $childCategoryIds = $childProduct->getCategoryIds();
+            if (!Mage::helper('ffuenf_childproductcategories')->getReassignDelete()) {
+                $childCategoryIds = $parentCategoryIds;
+            } elseif (!empty($childCategoryIds) && Mage::helper('ffuenf_childproductcategories')->getReassignDelete()) {
+                $childCategoryIds = '';
+            } else {
+                break;
+            }
             $childProduct->setCategoryIds($childCategoryIds);
             $childProduct->setIsChanged(true);
-            echo $childProduct->getId()."\r\n";
             $childProduct->save();
+            $childProduct->clearInstance();
         }
+        $product->clearInstance();
     }
 
-    public function batchAfter($model)
+    protected function batchAfter($currentPage, $batchSize, $report)
     {
+        $reportType = 'shell';
+        $report[$reportType][$currentPage]['stop']['time'] = microtime(true);
+        $report[$reportType][$currentPage]['stop']['memory'] = memory_get_usage(true);
+        Ffuenf_Common_Model_Logger::logProfile(
+            array(
+                'class' => 'Ffuenf_ProductAlertCleaner',
+                'type' => $reportType,
+                'items' => $batchSize,
+                'start' => array(
+                    'time' => $report[$reportType][$page]['start']['time'],
+                    'memory' => $report[$reportType][$page]['start']['memory'],
+                ),
+                'stop' => array(
+                    'time' => $report[$reportType][$page]['stop']['time'],
+                    'memory' => $report[$reportType][$page]['stop']['memory'],
+                )
+            )
+        );
+    }
+
+    protected function convert($size)
+    {
+        $unit = array('B','KB','MB','GB','TB','PB');
+        return @round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $unit[$i];
     }
 }
 

@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Ffuenf_ChildProductCategories>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
         </Ffuenf_ChildProductCategories>
     </modules>
     <global>
@@ -30,16 +30,16 @@
             </ffuenf_childproductcategories>
         </helpers>
         <models>
-            <childproductcategories>
+            <ffuenf_childproductcategories>
                 <class>Ffuenf_ChildProductCategories_Model</class>
-            </childproductcategories>
+            </ffuenf_childproductcategories>
         </models>
         <events>
             <catalog_product_save_before>
                 <observers>
                     <childproductcategories_catalog_product_save_before>
                         <type>singleton</type>
-                        <class>childproductcategories/observer_assignCategories</class>
+                        <class>ffuenf_childproductcategories/observer_assignCategories</class>
                         <method>detectProductChanges</method>
                     </childproductcategories_catalog_product_save_before>
                 </observers>
@@ -48,20 +48,40 @@
                 <observers>
                     <childproductcategories_catalog_product_attribute_update_before>
                         <type>singleton</type>
-                        <class>childproductcategories/observer_assignCategories</class>
+                        <class>ffuenf_childproductcategories/observer_assignCategories</class>
                         <method>detectProductAttributeChanges</method>
                     </childproductcategories_catalog_product_attribute_update_before>
                 </observers>
             </catalog_product_attribute_update_before>
         </events>
+        <resources>
+            <ffuenf_childproductcategories_setup>
+                <setup>
+                    <module>Ffuenf_ChildProductCategories</module>
+                </setup>
+            </ffuenf_childproductcategories_setup>
+        </resources>
     </global>
     <default>
         <ffuenf_childproductcategories>
             <general>
                 <enable>0</enable>
             </general>
-            </ffuenf_childproductcategories>
+            <reassigncategories>
+                <timeframetype>created_at</timeframetype>
+                <debug>0</debug>
+            </reassigncategories>
+            <log>
+                <enable>1</enable>
+                <file>assign_categories.log</file>
+                <force>1</force>
+                <echo>1</echo>
+            </log>
+        </ffuenf_childproductcategories>
     </default>
+    <uninstall>
+        <filename>uninstall.txt</filename>
+    </uninstall>
     <phpunit>
         <suite>
             <modules>
