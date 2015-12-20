@@ -130,8 +130,8 @@ class Assign_Categories_Of_Parent_To_Simples extends Mage_Shell_Abstract
 
     protected function convert($size)
     {
-        $unit = array('B','KB','MB','GB','TB','PB');
-        return @round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $unit[$i];
+        $unit = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+        return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . $unit[$i];
     }
 }
 

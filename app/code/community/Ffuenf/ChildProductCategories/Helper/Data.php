@@ -83,7 +83,7 @@ class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_Common_Helper_Dat
     /**
      * Get timeframe of reassigning categories.
      *
-     * @return string
+     * @return integer
      *
      * @throws Mage_Core_Exception
      */
@@ -95,7 +95,7 @@ class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_Common_Helper_Dat
     /**
      * Get timeframe of reassigning categories.
      *
-     * @return string
+     * @return integer
      *
      * @throws Mage_Core_Exception
      */
@@ -107,7 +107,7 @@ class Ffuenf_ChildProductCategories_Helper_Data extends Ffuenf_Common_Helper_Dat
     /**
      * Get delete setting of assignment.
      *
-     * @return string
+     * @return boolean
      *
      * @throws Mage_Core_Exception
      */

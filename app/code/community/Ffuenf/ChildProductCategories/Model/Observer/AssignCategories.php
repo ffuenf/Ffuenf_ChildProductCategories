@@ -30,7 +30,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
         }
         $attributesData = $observer->getEvent()->getAttributesData();
         $productIds     = $observer->getEvent()->getProductIds();
-        $user  = Mage::getSingleton('admin/session')->getUser();
+        $user = Mage::getSingleton('admin/session')->getUser();
         foreach ($productIds as $id) {
             $product = Mage::getModel('catalog/product')->load($id);
             if ($product->getTypeId() == 'configurable') {
@@ -44,7 +44,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
                     $childProduct->setIsChanged(true);
                     $childProduct->save();
                 }
-                Mage::log('The categories of "'.$product->getName().'" ID:'.$product->getId().' has been assign to its child products '.implode(",",$childProductsIds));
+                Mage::log('The categories of "' . $product->getName() . '" ID:' . $product->getId() . ' has been assign to its child products ' . implode(",", $childProductsIds));
             }
         }
         return $this;
@@ -58,9 +58,9 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
     public function detectProductChanges($observer)
     {
         /**
-        * @var $product Mage_Catalog_Model_Product
-        * @var $user    Mage_Admin_Model_User
-        */
+         * @var $product Mage_Catalog_Model_Product
+         * @var $user    Mage_Admin_Model_User
+         */
         if (!Mage::helper('ffuenf_childproductcategories')->isExtensionActive()) {
             return;
         }
@@ -76,7 +76,7 @@ class Ffuenf_ChildProductCategories_Model_Observer_AssignCategories extends Vari
                 $childProduct->setIsChanged(true);
                 $childProduct->save();
             }
-            Mage::log('The categories of "'.$product->getName().'" ID:'.$product->getId().' has been assign to its child products '.implode(",",$childProductsIds));
+            Mage::log('The categories of "' . $product->getName() . '" ID:' . $product->getId() . ' has been assign to its child products ' . implode(",", $childProductsIds));
         }
         return $this;
     }
